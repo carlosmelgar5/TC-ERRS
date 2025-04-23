@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard | TC Corp{% endblock %}
+
+{% block content %}
+<h2 style="color: #1e3a8a; text-align: center;">🏆 Recognition Leaderboard</h2>
+<p style="text-align: center; margin-bottom: 30px;">Top-recognized team members based on shoutouts received.</p>
+
+<div class="table-wrapper">
+  <table class="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Employee</th>
+        <th>Total Recognitions</th>
+        <th>Latest Badge</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range(leaderboard|length) %}
+        {% set name, count = leaderboard[i] %}
+        <tr>
+          <td>
+            {% if i == 0 %} 🥇 {% elif i == 1 %} 🥈 {% elif i == 2 %} 🥉 {% else %} {{ i+1 }} {% endif %}
+          </td>
+          <td>{{ name }}</td>
+          <td>{{ count }}</td>
+          <td>
+            {% set latest = recognitions | selectattr("receiver", "equalto", name) | map(attribute="badge") | list %}
+            {% if latest %}
+              {% set badge = latest[-1] %}
+              {% if badge == "Teamwork" %} 🤝
+              {% elif badge == "Innovation" %} 💡
+              {% elif badge == "Leadership" %} 👑
+              {% elif badge == "Customer Excellence" %} 🌟
+              {% else %} {{ badge }}
+              {% endif %}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

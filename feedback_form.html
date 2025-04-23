@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback | ERRS{% endblock %}
+
+{% block content %}
+  <h2>💬 Submit Feedback</h2>
+  <p>We’d love to hear how we can make this recognition system even better.</p>
+
+  <form method="POST" action="/feedback_form" style="max-width: 500px; margin: 30px auto; text-align: left;">
+    <label for="feedback">Your Feedback:</label><br>
+    <textarea id="feedback" name="feedback" rows="5" required></textarea><br><br>
+
+    <button type="submit" class="nav-link">Submit Feedback</button>
+  </form>
+{% endblock %}

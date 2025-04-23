@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit Reward | ERRS{% endblock %}
+
+{% block breadcrumbs %}
+  <a href="{{ url_for('home') }}">Home</a> &gt;
+  <span>Submit Reward</span>
+{% endblock %}
+
+{% block content %}
+  <h2>Submit a Reward</h2>
+
+  {% if eligible %}
+    <form method="POST">
+      <label for="recipient">Eligible Recipient:</label>
+      <select name="recipient" required>
+        {% for name in eligible %}
+          <option value="{{ name }}">{{ name }}</option>
+        {% endfor %}
+      </select><br><br>
+
+      <label for="reward">Reward:</label>
+      <input type="text" name="reward" required><br><br>
+
+      <label for="reason">Reason:</label><br>
+      <textarea name="reason" rows="4" required></textarea><br><br>
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  {% else %}
+    <p>No one is eligible for a reward yet. Encourage your team to recognize others!</p>
+  {% endif %}
+{% endblock %}

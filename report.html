@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Recognition Report | TC Corp{% endblock %}
+
+{% block content %}
+  <h2>Recognition Report</h2>
+  <p style="margin-bottom: 30px;">See all recognitions submitted by employees.</p>
+
+  {% if session.get('is_manager') %}
+    <form method="POST" action="{{ url_for('clear_recognitions') }}" onsubmit="return confirm('Are you sure you want to clear all recognitions? This cannot be undone.');">
+      <button type="submit" style="margin: 20px 0; background: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 6px;">
+         Clear All Recognitions
+      </button>
+    </form>
+  {% endif %}
+
+  <div class="report-grid">
+    {% for rec in recognitions %}
+      <div class="report-card">
+        <div class="report-header">
+          <strong>{{ rec.sender }}</strong>
+          <span class="badge">{{ rec.badge }}</span>
+        </div>
+        <div class="report-body">
+          <p><strong>To:</strong> {{ rec.receiver }}</p>
+          <p class="message">“{{ rec.message }}”</p>
+        </div>
+        <div class="report-footer">
+          <span>ID: {{ rec.employee_id }}</span>
+          <span class="timestamp">{{ rec.timestamp }}</span>
+        </div>
+      </div>
+    {% else %}
+      <p>No recognitions available.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

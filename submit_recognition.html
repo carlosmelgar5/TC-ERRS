@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit Recognition | TC Corp{% endblock %}
+
+{% block content %}
+  <h2>Submit Recognition</h2>
+  <p>Give a shoutout to a teammate for their great work 🎉</p>
+
+  {% if success %}
+    <div class="popup-alert">
+      {{ success }}
+    </div>
+    <script>
+      setTimeout(() => {
+        const popup = document.querySelector('.popup-alert');
+        if (popup) popup.style.display = 'none';
+      }, 4000);
+    </script>
+  {% endif %}
+
+  {% if error %}
+    <div class="error-box">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <form method="POST" action="/submit_recognition" style="max-width: 500px; margin: 30px auto; text-align: left;">
+    <label for="sender">Your Name:</label>
+    <input type="text" id="sender" name="sender" required>
+
+    <label for="sender_department">Your Department:</label>
+    <input type="text" id="sender_department" name="sender_department" required>
+
+    <label for="receiver">Who are you recognizing?</label>
+    <input type="text" id="receiver" name="receiver" required>
+
+    <label for="receiver_department">Their Department:</label>
+    <input type="text" id="receiver_department" name="receiver_department" required>
+
+    <label for="message">Why are you recognizing them?</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+
+    <label for="badge">Badge Type:</label>
+    <select id="badge" name="badge" required>
+      <option value="Teamwork">Teamwork</option>
+      <option value="Innovation">Innovation</option>
+      <option value="Leadership">Leadership</option>
+      <option value="Customer Excellence">Customer Excellence</option>
+    </select>
+
+    <button type="submit" class="nav-link" style="margin-top: 20px;">Submit Recognition</button>
+  </form>
+
+  <style>
+    .popup-alert {
+      background-color: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #34d399;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 500;
+      margin-top: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeIn 0.3s ease;
+    }
+  </style>
+{% endblock %}

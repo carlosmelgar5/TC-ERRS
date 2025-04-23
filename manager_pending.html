@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Manager Approval | TC Corp{% endblock %}
+<form method="POST" action="{{ url_for('clear_recognitions') }}" onsubmit="return confirm('Are you sure you want to clear all recognitions? This cannot be undone.');">
+  <button type="submit" class="nav-link" style="margin-top: 20px; background-color: #ef4444;">🗑️ Clear All Recognitions</button>
+</form>
+
+
+{% block content %}
+  <h2 style="text-align:center;"> Pending Recognition Approvals</h2>
+  {% if pending %}
+    <div class="report-grid">
+      {% for rec in pending %}
+        <div class="report-card">
+          <div class="report-header">
+            From: {{ rec.sender }} → To: {{ rec.receiver }}
+            <span class="badge">{{ rec.badge }}</span>
+          </div>
+          <div class="report-body">
+            <p class="message">{{ rec.message }}</p>
+          </div>
+          <div class="report-footer">
+            <form method="POST" action="{{ url_for('approve_recognition', rec_id=rec.id) }}" style="display:inline;">
+              <button type="submit">✅ Approve</button>
+            </form>
+            <form method="POST" action="{{ url_for('deny_recognition', rec_id=rec.id) }}" style="display:inline;">
+              <button type="submit" style="background:#f87171;">❌ Deny</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="text-align:center; margin-top:30px;">No pending recognitions at this time.</p>
+  {% endif %}
+{% endblock %}

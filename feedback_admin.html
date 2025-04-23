@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Admin Feedback Viewer</h2>
+
+{% if feedback %}
+    <ul>
+        {% for entry in feedback %}
+            <li>
+                <strong>{{ entry.timestamp }}</strong>: {{ entry.feedback }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No feedback submitted yet.</p>
+{% endif %}
+{% endblock %}

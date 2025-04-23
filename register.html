@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Register | TC Corp{% endblock %}
+
+{% block content %}
+<div class="form-box">
+  <h2>Create a TC Corp Account</h2>
+  {% if error %}
+    <div class="error-box">{{ error }}</div>
+  {% endif %}
+  <form method="POST">
+    <label for="username">Username</label>
+    <input type="text" name="username" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" required>
+
+    <div style="margin-top: 12px; display: flex; align-items: center;">
+      <input type="checkbox" name="is_manager" id="is_manager" style="margin-right: 8px;">
+      <label for="is_manager">Register as Manager</label>
+    </div>
+
+    <button type="submit" style="margin-top: 20px;">Register</button>
+  </form>
+
+  <p style="margin-top: 10px;">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+</div>
+{% endblock %}
